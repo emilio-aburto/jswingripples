@@ -18,12 +18,28 @@ public class MainMenuBar {
         bar = new JMenuBar();
         bar.add(createFileMenu());
         bar.add(createjRipplesMenu());
+        bar.add(createExportMenu());
         bar.add(createHelpMenu());
         bar.add(createSearchPanel());
     }
 
 
-    public SearchMenu getSearchMenu() {
+    private JMenu createExportMenu() {
+    	final JMenu export = new JMenu("Export");
+    	bar.add(export);
+    	
+    	final JMenuItem exportAnnotations = new JMenuItem("Export Annotations");
+    	//TODO: implement actual export functionality
+    	export.add(exportAnnotations);
+    	
+    	final JMenuItem exportMarks = new JMenuItem("Export Marks");
+    	//TODO: implement actual export functionality
+    	export.add(exportMarks);
+		return export;
+	}
+
+
+	public SearchMenu getSearchMenu() {
         return searchMenu;
     }
 

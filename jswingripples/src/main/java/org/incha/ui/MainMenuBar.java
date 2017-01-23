@@ -1,5 +1,6 @@
 package org.incha.ui;
 
+import org.incha.ui.export.ExportMarksAction;
 import org.incha.ui.search.SearchMenu;
 import org.incha.ui.stats.GraphVisualizationAction;
 import org.incha.ui.stats.ImpactGraphVisualizationAction;
@@ -34,6 +35,7 @@ public class MainMenuBar {
     	
     	final JMenuItem exportMarks = new JMenuItem("Export Marks");
     	//TODO: implement actual export functionality
+    	exportMarks.addActionListener(new ExportMarksAction());
     	export.add(exportMarks);
 		return export;
 	}

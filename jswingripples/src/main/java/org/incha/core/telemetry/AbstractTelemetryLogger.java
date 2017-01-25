@@ -8,18 +8,24 @@ import java.util.Calendar;
  * Interface to be implemented by any Telemetry Logger
  */
 public abstract class AbstractTelemetryLogger {
-    private Calendar calendar;
     private SimpleDateFormat dateFormat;
+    private AbstractTelemetryLogger instance;
 
     public AbstractTelemetryLogger() {
-        calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
     }
 
-    public void setCustomCalendar(Calendar cal){
-        calendar = cal;
+    public abstract void log(Phase phase, String action, String entity);
+
+    public AbstractTelemetryLogger getLogger(){
+        if (instance == null){
+            instance = this;
+        }
+        return instance;
     }
 
-    public abstract void log(String... args);
+    public String getTimestamp(){
+        return dateFormat.format(Calendar.getInstance().getTime());
+    }
 
 }

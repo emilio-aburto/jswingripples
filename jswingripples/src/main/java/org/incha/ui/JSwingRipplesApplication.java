@@ -4,6 +4,8 @@ import org.apache.commons.logging.LogFactory;
 import org.incha.core.JavaProject;
 import org.incha.core.JavaProjectsModel;
 import org.incha.core.StatisticsManager;
+import org.incha.core.telemetry.AbstractTelemetryLogger;
+import org.incha.core.telemetry.DummyTelemetryLogger;
 import org.incha.ui.stats.StartAnalysisAction;
 
 import javax.swing.*;
@@ -24,11 +26,13 @@ public class JSwingRipplesApplication extends JFrame {
     private final MainMenuBar mainMenuBar;
     private static JSwingRipplesApplication instance;
     private TaskProgressMonitor progressMonitor;
+    private AbstractTelemetryLogger telemetryLogger;
 
     private JSwingRipplesApplication(final JTabbedPane viewArea, TaskProgressMonitor progressMonitor) {
         super("JSwingRipples");
         this.viewArea = viewArea;
         this.progressMonitor = progressMonitor;
+        this.telemetryLogger = new DummyTelemetryLogger();
         setContentPane(createMainContentPane());
         mainMenuBar = new MainMenuBar();
         projectsView = createProjectsView();
@@ -40,6 +44,10 @@ public class JSwingRipplesApplication extends JFrame {
         addJTabbedPaneMouseListener(viewArea);
         StatisticsManager.getInstance().addStatisticsChangeListener(new DefaultController());
         new ModelSaver(JavaProjectsModel.getInstance(), JavaProjectsModel.getModelFile());
+    }
+
+    public AbstractTelemetryLogger getTelemetryLogger() {
+        return telemetryLogger.getLogger();
     }
 
     /**

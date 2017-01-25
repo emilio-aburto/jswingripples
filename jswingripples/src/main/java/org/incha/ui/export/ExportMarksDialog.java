@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -21,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.incha.core.JavaProject;
 import org.incha.core.JavaProjectsModel;
+import org.incha.ui.IssuesReader;
 import org.incha.ui.JSwingRipplesApplication;
 
 public class ExportMarksDialog extends JDialog {
@@ -32,8 +35,11 @@ public class ExportMarksDialog extends JDialog {
 	
 	private final JButton exportMarksButton = new JButton ("Export Marks");
 	private JavaProject project;
+	private String issue;
+	private Object[][] issuesArray;
 	final Window ownerWindow;
 	final JComboBox<String> projects;
+	JComboBox<String> issues;
 	
 	public ExportMarksDialog(final Window owner){
 		super(owner);
@@ -54,6 +60,16 @@ public class ExportMarksDialog extends JDialog {
 				projectChanged();
 			}
 		});
+		
+		issues = new JComboBox<>();
+		issues.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				issueChanged();
+			}
+		});		
+				
+
 		
 		final JPanel center = new JPanel(new FlowLayout(FlowLayout.LEADING));
         final JPanel selectProject = createCenterPanel();
@@ -84,13 +100,18 @@ public class ExportMarksDialog extends JDialog {
         projectChanged();
 	}
 
+	protected void issueChanged() {
+		// TODO Auto-generated method stub
+		issue = issues.getSelectedItem().toString();
+	}
+
 	protected void doCancel() {
 		dispose();
 		
 	}
 
 	protected void doOk() {
-		ExportMarksAction.printProjectMarks(project);
+		ExportMarksAction.printProjectMarks(project, issue);
 		dispose();
 	}
 
@@ -102,6 +123,10 @@ public class ExportMarksDialog extends JDialog {
         panel.add(projects);
 
         projects.setEditable(false);
+        
+        panel.add(new JLabel("Issue:"));
+        panel.add(issues);
+        issues.setEditable(false);
 
         return panel;
 	}
@@ -109,6 +134,25 @@ public class ExportMarksDialog extends JDialog {
 	protected void projectChanged() {
 		project = JavaProjectsModel.getInstance().getProject((String) projects.getSelectedItem());
 		
+		getIssues(project);
+		
+	}
+
+	private void getIssues(JavaProject project) {
+		// TODO Auto-generated method stub
+		IssuesReader issuesReader = new IssuesReader(JSwingRipplesApplication.getHome() + File.separator + project.getName() + ".xml");
+		issuesReader.load();
+		/*
+		for (Object[] row : issuesReader.loadData()){
+			System.out.println(Arrays.toString(row));
+		}
+		*/
+		issuesArray = issuesReader.loadData();
+		String[] issueNames = new String[issuesArray.length];
+		for (int i = 0; i < issueNames.length; i++) {
+			issueNames[i] = issuesArray[i][0].toString();
+		}
+		issues.setModel(new DefaultComboBoxModel<>(issueNames));
 	}
 	
 

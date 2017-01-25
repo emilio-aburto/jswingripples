@@ -90,6 +90,7 @@ public class JSwingRipplesApplication extends JFrame {
                     issuesReader.load();
                     issuesWindow.addTableView(issuesReader.loadData(), issuesReader.loadColumnNames());
                     addComponentAsTab(issuesWindow,"Issues from Project: "+ project.getName());
+                    //System.out.println(JSwingRipplesApplication.getHome() + File.separator + project.getName());
                 }
             });
             menu.add(showIssues);

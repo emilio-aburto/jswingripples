@@ -38,11 +38,23 @@ public class ExportMarksAction implements ActionListener {
 		}
 	}
 
-	public static void printProjectMarks(JavaProject project) {
+	public static void printProjectMarks(JavaProject project, String issue) {
 		JSwingRipplesEIG eig = project.getCurrentStatistics().getEIG();
 		for (int i = 0; i < eig.getAllNodes().length; i++){
-			System.out.println("Node: " + eig.getAllNodes()[i].getFullName() + " Mark: " + eig.getAllNodes()[i].getMark());
+			//System.out.println("Node: " + eig.getAllNodes()[i].getFullName() + " Mark: " + eig.getAllNodes()[i].getMark());
+			System.out.println(buildComment(eig, issue, i));
 		}
+	}
+
+	private static String buildComment(JSwingRipplesEIG eig, String issue, int i) {
+		// TODO Auto-generated method stub
+		StringBuilder sb = new StringBuilder("//@JRipples: Issue ");
+		sb.append(issue);
+		sb.append(" , ");
+		sb.append(eig.getAllNodes()[i].getFullName());
+		sb.append(": ");
+		sb.append(eig.getAllNodes()[i].getMark());
+		return sb.toString();
 	}
 
 }

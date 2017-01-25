@@ -19,6 +19,7 @@ public class JSwingRipplesApplication extends JFrame {
     private static final long serialVersionUID = 6142679404175274529L;
     private JTabbedPane viewArea;
     private JButton proceedButton;
+    private JButton commitButton;
     private JSplitPane projectViewAndViewAreaSplit;
     private final ProjectsView projectsView;
     private final MainMenuBar mainMenuBar;
@@ -227,10 +228,18 @@ public class JSwingRipplesApplication extends JFrame {
     }
 
 
-    public void showProceedButton() {
+    /*public void showProceedButton() {
         JSplitPane rightSide = (JSplitPane) projectViewAndViewAreaSplit.getRightComponent();
         rightSide.setRightComponent(proceedButton); // make the button show up by setting it as the bottom part
         rightSide.revalidate();
+    }*/
+    public void showProceedButton() {
+        JSplitPane rightSide = (JSplitPane) projectViewAndViewAreaSplit.getRightComponent();
+        JSplitPane proceedSide = (JSplitPane) rightSide.getRightComponent();
+        proceedSide.setLeftComponent(proceedButton); // make the button show up by setting it as the bottom part
+        proceedSide.setRightComponent(commitButton);
+        rightSide.revalidate();
+        proceedSide.revalidate();
     }
 
     public void setProceedButtonListener(ActionListener al){
@@ -311,7 +320,12 @@ public class JSwingRipplesApplication extends JFrame {
 
     private JSplitPane createViewAreaAndProceedButtonSplit() {
         proceedButton = new JButton("Proceed to Impact Analysis");
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, viewArea, null);
+        //
+        commitButton = new JButton("Commit");
+        //JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, viewArea, null);
+        JSplitPane buttonsPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, null, null);
+        //
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, viewArea, buttonsPane);
         splitPane.setDividerSize(0);
         splitPane.setResizeWeight(0.95);
         splitPane.setEnabled(false);

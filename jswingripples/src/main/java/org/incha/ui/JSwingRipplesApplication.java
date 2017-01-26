@@ -26,13 +26,12 @@ public class JSwingRipplesApplication extends JFrame {
     private final MainMenuBar mainMenuBar;
     private static JSwingRipplesApplication instance;
     private TaskProgressMonitor progressMonitor;
-    private AbstractTelemetryLogger telemetryLogger;
+    private static AbstractTelemetryLogger logger = new DummyTelemetryLogger();
 
     private JSwingRipplesApplication(final JTabbedPane viewArea, TaskProgressMonitor progressMonitor) {
         super("JSwingRipples");
         this.viewArea = viewArea;
         this.progressMonitor = progressMonitor;
-        this.telemetryLogger = new DummyTelemetryLogger();
         setContentPane(createMainContentPane());
         mainMenuBar = new MainMenuBar();
         projectsView = createProjectsView();
@@ -46,8 +45,8 @@ public class JSwingRipplesApplication extends JFrame {
         new ModelSaver(JavaProjectsModel.getInstance(), JavaProjectsModel.getModelFile());
     }
 
-    public AbstractTelemetryLogger getTelemetryLogger() {
-        return telemetryLogger.getLogger();
+    public static AbstractTelemetryLogger getLogger() {
+        return logger.getLogger();
     }
 
     /**

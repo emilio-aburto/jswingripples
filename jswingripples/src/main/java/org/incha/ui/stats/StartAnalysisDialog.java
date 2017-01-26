@@ -3,8 +3,7 @@ package org.incha.ui.stats;
 import org.incha.core.*;
 import org.incha.core.jswingripples.eig.JSwingRipplesEIG;
 import org.incha.core.jswingripples.parser.InteractiveTask;
-import org.incha.core.telemetry.AbstractTelemetryLogger;
-import org.incha.core.telemetry.Phase;
+import org.incha.core.telemetry.utils.Phase;
 import org.incha.ui.JSwingRipplesApplication;
 import org.incha.ui.jripples.JRipplesDefaultModulesConstants;
 

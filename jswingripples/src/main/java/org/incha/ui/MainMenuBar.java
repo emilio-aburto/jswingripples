@@ -8,8 +8,10 @@ import org.incha.ui.stats.ShowCurrentStateAction;
 import org.incha.ui.stats.StartAnalysisAction;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MainMenuBar {
     private JMenuBar bar;
@@ -29,16 +31,17 @@ public class MainMenuBar {
         final JMenuItem startTelemetry, openTelemetryLog, importTelemetry, exportTelemetry;
 
         // Create and add menu items
-        startTelemetry = new JMenuItem("Start logging");
+        startTelemetry = new JMenuItem("Enable logging");
         telemetryMenu.add(startTelemetry);
         openTelemetryLog = new JMenuItem("View log");
-        openTelemetryLog.setEnabled(false); // Disabled until logging is started
+        openTelemetryLog.setEnabled(false); // Disabled until logging is enabled
         telemetryMenu.add(openTelemetryLog);
         telemetryMenu.add(new JSeparator(JSeparator.HORIZONTAL));
         importTelemetry = new JMenuItem("Import from file...");
         telemetryMenu.add(importTelemetry);
+        importTelemetry.setEnabled(false); // Disabled until logging is enabled
         exportTelemetry = new JMenuItem("Save to file...");
-        exportTelemetry.setEnabled(false); // Disabled until logging is started
+        exportTelemetry.setEnabled(false); // Disabled until logging is enabled
         telemetryMenu.add(exportTelemetry);
 
         // Create menu items' listeners
@@ -48,8 +51,9 @@ public class MainMenuBar {
                 // Set new logger
                 JSwingRipplesApplication.setLogger(CSVTelemetryLogger.getInstance());
 
-                // Enable opening telemetry view and allow export
+                // Enable opening telemetry view and allow import/export
                 openTelemetryLog.setEnabled(true);
+                importTelemetry.setEnabled(true);
                 exportTelemetry.setEnabled(true);
                 }
         });
@@ -64,13 +68,42 @@ public class MainMenuBar {
         importTelemetry.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                JFileChooser chooser = new JFileChooser();
+                chooser.setDialogType(JFileChooser.OPEN_DIALOG);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                        "CSV files", "csv");
+                chooser.setFileFilter(filter);
+                chooser.setDialogTitle("Open log file...");
+                int returnVal = chooser.showOpenDialog(JSwingRipplesApplication.getInstance());
+                if(returnVal == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        CSVTelemetryLogger.getInstance().
+                                importFromFile(chooser.getSelectedFile());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         });
+
         exportTelemetry.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                JFileChooser chooser = new JFileChooser();
+                chooser.setDialogType(JFileChooser.SAVE_DIALOG);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                        "CSV files", "csv");
+                chooser.setFileFilter(filter);
+                chooser.setDialogTitle("Save log file as...");
+                int returnVal = chooser.showOpenDialog(JSwingRipplesApplication.getInstance());
+                if(returnVal == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        CSVTelemetryLogger.getInstance().
+                                exportToFile(chooser.getSelectedFile());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         });
 

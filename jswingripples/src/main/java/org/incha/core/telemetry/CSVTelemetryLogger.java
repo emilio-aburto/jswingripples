@@ -5,6 +5,7 @@ import org.incha.core.telemetry.utils.CSVLogSerializer;
 import org.incha.core.telemetry.utils.Phase;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,16 +29,16 @@ public class CSVTelemetryLogger extends AbstractTelemetryLogger{
         logs.add(new CSVQuad(getTimestamp(), phase, action, entity));
     }
 
-    public void importFromFile(File file) {
-        // TODO
+    public void importFromFile(File file) throws IOException {
+        logs = new CSVLogDeserializer(file).read();
     }
-    public void exportToFile(File file){
-        // TODO
+    public void exportToFile(File file) throws IOException {
+        new CSVLogSerializer(file).write(this.logs);
     }
 
-    public List<CSVQuad> getLogs(){
-        return logs;
-    }
+//    public List<CSVQuad> getLogs(){
+//        return logs;
+//    }
 
     public static CSVTelemetryLogger getInstance(){
         if (instance == null){

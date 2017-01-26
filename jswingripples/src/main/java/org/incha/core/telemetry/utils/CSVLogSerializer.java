@@ -19,9 +19,6 @@ public class CSVLogSerializer {
             out.newLine();
         }
         out.flush();
-    }
-
-    public void close() throws IOException {
         out.close();
     }
 
@@ -41,7 +38,7 @@ public class CSVLogSerializer {
         }
 
         CSVQuad(String fileLine){
-            this(fileLine.split(fileLine));
+            this(fileLine.split(SEPARATOR));
         }
 
         private CSVQuad(String[] array){

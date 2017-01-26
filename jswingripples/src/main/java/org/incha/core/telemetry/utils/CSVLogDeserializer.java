@@ -24,6 +24,4 @@ public class CSVLogDeserializer {
 
         return list;
     }
-
-
 }

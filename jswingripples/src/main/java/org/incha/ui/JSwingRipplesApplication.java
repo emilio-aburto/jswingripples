@@ -7,7 +7,7 @@ import org.incha.core.JavaProjectsModel;
 import org.incha.core.StatisticsManager;
 import org.incha.core.telemetry.AbstractTelemetryLogger;
 import org.incha.core.telemetry.NullTelemetryLogger;
-import org.incha.core.telemetry.SimpleTelemetryLogger;
+//import org.incha.core.telemetry.SimpleTelemetryLogger;
 import org.incha.ui.stats.StartAnalysisAction;
 
 import javax.swing.*;

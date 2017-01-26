@@ -28,8 +28,8 @@ public class JSwingRipplesApplication extends JFrame {
     private final MainMenuBar mainMenuBar;
     private static JSwingRipplesApplication instance;
     private TaskProgressMonitor progressMonitor;
-//    private static AbstractTelemetryLogger logger = new NullTelemetryLogger();
-    private static AbstractTelemetryLogger logger = new SimpleTelemetryLogger();
+    private static AbstractTelemetryLogger logger = new NullTelemetryLogger();
+//    private static AbstractTelemetryLogger logger = new SimpleTelemetryLogger();
 
 
     private JSwingRipplesApplication(final JTabbedPane viewArea, TaskProgressMonitor progressMonitor) {
@@ -51,6 +51,10 @@ public class JSwingRipplesApplication extends JFrame {
 
     public static AbstractTelemetryLogger getLogger() {
         return logger.getLogger();
+    }
+
+    public static void setLogger(AbstractTelemetryLogger logger){
+        JSwingRipplesApplication.logger = logger;
     }
 
     /**

@@ -17,8 +17,9 @@ public class CSVTelemetryLogger extends AbstractTelemetryLogger{
     private CSVLogSerializer serializer;
     private CSVLogDeserializer deserializer;
     private List<CSVQuad> logs;
+    private static CSVTelemetryLogger instance;
 
-    public CSVTelemetryLogger(){
+    private CSVTelemetryLogger(){
         logs = new LinkedList<>();
     }
 
@@ -36,6 +37,14 @@ public class CSVTelemetryLogger extends AbstractTelemetryLogger{
 
     public List<CSVQuad> getLogs(){
         return logs;
+    }
+
+    public static CSVTelemetryLogger getInstance(){
+        if (instance == null){
+            instance = new CSVTelemetryLogger();
+        }
+
+        return instance;
     }
 
 }

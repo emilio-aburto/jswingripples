@@ -1,5 +1,6 @@
 package org.incha.ui;
 
+import org.incha.core.telemetry.CSVTelemetryLogger;
 import org.incha.ui.search.SearchMenu;
 import org.incha.ui.stats.GraphVisualizationAction;
 import org.incha.ui.stats.ImpactGraphVisualizationAction;
@@ -27,30 +28,38 @@ public class MainMenuBar {
         final JMenu telemetryMenu = new JMenu("Telemetry");
         final JMenuItem startTelemetry, openTelemetryLog, importTelemetry, exportTelemetry;
 
+        // Create and add menu items
         startTelemetry = new JMenuItem("Start logging");
+        telemetryMenu.add(startTelemetry);
         openTelemetryLog = new JMenuItem("View log");
+        openTelemetryLog.setEnabled(false); // Disabled until logging is started
+        telemetryMenu.add(openTelemetryLog);
+        telemetryMenu.add(new JSeparator(JSeparator.HORIZONTAL));
         importTelemetry = new JMenuItem("Import from file...");
+        telemetryMenu.add(importTelemetry);
         exportTelemetry = new JMenuItem("Save to file...");
+        exportTelemetry.setEnabled(false); // Disabled until logging is started
+        telemetryMenu.add(exportTelemetry);
 
+        // Create menu items' listeners
         startTelemetry.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Set new logger
+                JSwingRipplesApplication.setLogger(CSVTelemetryLogger.getInstance());
+
+                // Enable opening telemetry view and allow export
                 openTelemetryLog.setEnabled(true);
                 exportTelemetry.setEnabled(true);
-                // TODO
-            }
+                }
         });
-        telemetryMenu.add(startTelemetry);
 
-        openTelemetryLog.setEnabled(false);
         openTelemetryLog.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO
             }
         });
-        telemetryMenu.add(openTelemetryLog);
-        telemetryMenu.add(new JSeparator(JSeparator.HORIZONTAL));
 
         importTelemetry.addActionListener(new ActionListener() {
             @Override
@@ -58,20 +67,15 @@ public class MainMenuBar {
                 // TODO
             }
         });
-        telemetryMenu.add(importTelemetry);
-
-        exportTelemetry.setEnabled(false);
         exportTelemetry.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO
             }
         });
-        telemetryMenu.add(exportTelemetry);
 
         return telemetryMenu;
     }
-
 
     public SearchMenu getSearchMenu() {
         return searchMenu;

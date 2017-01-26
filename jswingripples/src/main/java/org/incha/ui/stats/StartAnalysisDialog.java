@@ -36,9 +36,9 @@ public class StartAnalysisDialog extends JDialog {
     private JavaProject project;
     final Window ownerWindow;
     final JComboBox<String> projects;
-    private Phase currentPhase;
+    private static Phase currentPhase;
 
-    public Phase getCurrentPhase() {
+    public static Phase getCurrentPhase() {
         return currentPhase;
     }
 

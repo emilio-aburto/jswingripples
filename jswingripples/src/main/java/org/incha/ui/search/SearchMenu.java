@@ -2,6 +2,7 @@ package org.incha.ui.search;
 
 import org.incha.core.telemetry.Phase;
 import org.incha.ui.JSwingRipplesApplication;
+import org.incha.ui.stats.StartAnalysisDialog;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -37,7 +38,7 @@ public class SearchMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JSwingRipplesApplication.getLogger().log(
-                        Phase.CL,
+                        StartAnalysisDialog.getCurrentPhase(),
                         "Searching \"".concat(searchedWords.getText().trim().concat("\"")),
                         "N/A");
                 new StartSearchWorker(searchedWords).execute();

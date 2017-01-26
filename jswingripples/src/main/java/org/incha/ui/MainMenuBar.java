@@ -18,8 +18,58 @@ public class MainMenuBar {
         bar = new JMenuBar();
         bar.add(createFileMenu());
         bar.add(createjRipplesMenu());
+        bar.add(createTelemetryMenu());
         bar.add(createHelpMenu());
         bar.add(createSearchPanel());
+    }
+
+    private JMenu createTelemetryMenu() {
+        final JMenu telemetryMenu = new JMenu("Telemetry");
+        final JMenuItem startTelemetry, openTelemetryLog, importTelemetry, exportTelemetry;
+
+        startTelemetry = new JMenuItem("Start logging");
+        openTelemetryLog = new JMenuItem("View log");
+        importTelemetry = new JMenuItem("Import from file...");
+        exportTelemetry = new JMenuItem("Save to file...");
+
+        startTelemetry.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openTelemetryLog.setEnabled(true);
+                exportTelemetry.setEnabled(true);
+                // TODO
+            }
+        });
+        telemetryMenu.add(startTelemetry);
+
+        openTelemetryLog.setEnabled(false);
+        openTelemetryLog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
+        telemetryMenu.add(openTelemetryLog);
+        telemetryMenu.add(new JSeparator(JSeparator.HORIZONTAL));
+
+        importTelemetry.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
+        telemetryMenu.add(importTelemetry);
+
+        exportTelemetry.setEnabled(false);
+        exportTelemetry.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
+        telemetryMenu.add(exportTelemetry);
+
+        return telemetryMenu;
     }
 
 

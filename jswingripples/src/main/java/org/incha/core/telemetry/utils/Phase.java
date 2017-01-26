@@ -1,4 +1,4 @@
-package org.incha.core.telemetry;
+package org.incha.core.telemetry.utils;
 
 /**
  * Created by eaburto on 25-01-17.

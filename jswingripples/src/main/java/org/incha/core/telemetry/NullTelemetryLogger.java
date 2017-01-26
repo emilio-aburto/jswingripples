@@ -1,5 +1,7 @@
 package org.incha.core.telemetry;
 
+import org.incha.core.telemetry.utils.Phase;
+
 /**
  * Created by eaburto on 26-01-17.
  */

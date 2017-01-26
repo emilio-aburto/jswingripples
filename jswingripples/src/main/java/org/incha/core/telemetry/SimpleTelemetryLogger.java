@@ -1,5 +1,7 @@
 package org.incha.core.telemetry;
 
+import org.incha.core.telemetry.utils.Phase;
+
 public class SimpleTelemetryLogger extends AbstractTelemetryLogger {
     @Override
     public void log(Phase phase, String action, String entity){

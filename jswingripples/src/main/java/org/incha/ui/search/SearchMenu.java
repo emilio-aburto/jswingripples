@@ -1,6 +1,5 @@
 package org.incha.ui.search;
 
-import org.incha.core.telemetry.Phase;
 import org.incha.ui.JSwingRipplesApplication;
 import org.incha.ui.stats.StartAnalysisDialog;
 

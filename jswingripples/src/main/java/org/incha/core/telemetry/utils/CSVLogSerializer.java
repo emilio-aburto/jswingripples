@@ -1,6 +1,7 @@
 package org.incha.core.telemetry.utils;
 
 import java.io.*;
+import java.util.List;
 
 /**
  * Created by eaburto on 26-01-17.
@@ -12,7 +13,7 @@ public class CSVLogSerializer {
         out = new BufferedWriter(new FileWriter(file));
     }
 
-    public void write(CSVQuad ... quads) throws IOException {
+    public void write(List<CSVQuad> quads) throws IOException {
         for(CSVQuad quad: quads){
             out.write(quad.toString());
             out.newLine();

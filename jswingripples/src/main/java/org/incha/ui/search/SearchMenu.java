@@ -1,5 +1,9 @@
 package org.incha.ui.search;
 
+import org.incha.core.telemetry.Phase;
+import org.incha.ui.JSwingRipplesApplication;
+import org.incha.ui.stats.StartAnalysisDialog;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
@@ -33,6 +37,10 @@ public class SearchMenu {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JSwingRipplesApplication.getLogger().log(
+                        StartAnalysisDialog.getCurrentPhase(),
+                        "Searching \"".concat(searchedWords.getText().trim().concat("\"")),
+                        "N/A");
                 new StartSearchWorker(searchedWords).execute();
             }
         });

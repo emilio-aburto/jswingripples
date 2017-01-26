@@ -22,7 +22,9 @@ public class CommitAction implements ActionListener {
 
 	public void commit(JavaProject project, String phase, String issue) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("NEW COMMIT");
+		System.out.println("NAME: JSwingRipples commit");
+		System.out.println("MESSAGE: Project: " + project.getName() + " Phase: " + phase + " Issue: " + issue);
 	}
 
 }

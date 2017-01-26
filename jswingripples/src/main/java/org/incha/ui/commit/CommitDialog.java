@@ -111,6 +111,7 @@ public class CommitDialog extends JDialog {
         getContentPane().add(south, BorderLayout.SOUTH);
         
         projectChanged();
+        phaseChanged();
         
 	}
 
@@ -124,7 +125,7 @@ public class CommitDialog extends JDialog {
 	protected void commit() {
 		// TODO Auto-generated method stub
 		commitCallback.commit(project, phase, issue);
-		dispose();
+		this.dispose();
 	}
 
 

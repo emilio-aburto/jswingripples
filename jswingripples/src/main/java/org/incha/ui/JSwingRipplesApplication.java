@@ -4,6 +4,7 @@ import org.apache.commons.logging.LogFactory;
 import org.incha.core.JavaProject;
 import org.incha.core.JavaProjectsModel;
 import org.incha.core.StatisticsManager;
+import org.incha.ui.commit.CommitAction;
 import org.incha.ui.stats.StartAnalysisAction;
 
 import javax.swing.*;
@@ -322,6 +323,7 @@ public class JSwingRipplesApplication extends JFrame {
         proceedButton = new JButton("Proceed to Impact Analysis");
         //
         commitButton = new JButton("Commit");
+        commitButton.addActionListener(new CommitAction());
         //JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, viewArea, null);
         JSplitPane buttonsPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, null, null);
         //

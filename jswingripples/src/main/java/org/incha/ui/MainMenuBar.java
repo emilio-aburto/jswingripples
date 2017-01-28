@@ -1,5 +1,6 @@
 package org.incha.ui;
 
+import org.apache.log4j.lf5.viewer.LogTable;
 import org.incha.core.telemetry.CSVTelemetryLogger;
 import org.incha.ui.search.SearchMenu;
 import org.incha.ui.stats.GraphVisualizationAction;
@@ -61,7 +62,13 @@ public class MainMenuBar {
         openTelemetryLog.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                JFrame frame = new JFrame("Log table");
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                LogTableView table = new LogTableView(
+                        CSVTelemetryLogger.getInstance().getLogsArray());
+                frame.setContentPane(table);
+                frame.pack();
+                frame.setVisible(true);
             }
         });
 

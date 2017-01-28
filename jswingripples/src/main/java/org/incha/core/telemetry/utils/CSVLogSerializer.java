@@ -62,14 +62,13 @@ public class CSVLogSerializer {
             return builder.toString();
         }
 
-//        public List<String> toList(){
-//            List<String> list = new LinkedList<>();
-//            list.add(timestamp);
-//            list.add(phase.toString());
-//            list.add(action);
-//            list.add(entity);
-//
-//            return list;
-//        }
+
+        public String[] toArray(){
+            return new String[]{
+                    timestamp,
+                    phase.toString(),
+                    action,
+                    entity};
+        }
     }
 }
